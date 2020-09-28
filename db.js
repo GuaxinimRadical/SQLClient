@@ -1,7 +1,7 @@
 var sqlite = require('sqlite3')//.verbose()
 
 var errors = null
-var database = new sqlite.Database('example.db', 
+var database = new sqlite.Database('./databases/example.db', 
     (err) => { if(err) errors=err} )
 
 module.exports = {
@@ -23,9 +23,15 @@ module.exports = {
 
         database.serialize(function(){
             database.run(queryToRun)
-        }, (err) => { if(err) errors=err})
+		}, (err) => { 
+			if(err){ 
+				errors=err
+			} else {
+				data='Sucefful'}
+			}
+		)
 
-        return errors
+        return errors || data
     },
 
 	queryToSelect: function(queryToRun){

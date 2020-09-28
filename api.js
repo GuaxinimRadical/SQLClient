@@ -28,18 +28,20 @@ app.post('/query', function(req, res){
 		console.log( indice+1,') ',element)
 	})
 	
-	// sql.queryToChangeDB('CREATE TABLE example(id tinyInt)')
-	//sql.queryToChangeDB('INSERT INTO panico(id, name) VALUES (3, "maria")')
-
-	const hhh = sql.queryToSelect(queries[0])//queries[0])
-	hhh.then(
-		(a)=>{
-			console.log('DJANGO: ',a)
-			res.send(a)
+	queries.forEach( (el,ind) => {
+		if(el.toLowerCase().includes('select')){
+			//Query with select
+			sql.queryToSelect(el)
+				.then( response => res.send(response))
+				.catch((err) => res.send({'error': err}))
+		} else {
+			 sql.queryToChangeDB(el)
 		}
-	).catch((erro)=>{
-		res.send({'error': erro})
 	})
+
+	const queriesWithSelect = queries.filter( el => el.toLowerCase().includes('select') ) 
+	const queriesToChangeDB = queries.filter( el => (!el.toLowerCase().includes('select') && el ))//.filter( i=>i ) 
+
 })
 
 app.listen( portServer,()=>console.log('Server running: http://localhost:'+portServer) )
