@@ -32,16 +32,12 @@ app.post('/query', function(req, res){
 		if(el.toLowerCase().includes('select')){
 			//Query with select
 			sql.queryToSelect(el)
-				.then( response => res.send(response))
-				.catch((err) => res.send({'error': err}))
+				.then( response => res.send({ table:response}))
+				.catch((err) => res.send({'errorDatabase': err}))
 		} else {
 			 sql.queryToChangeDB(el)
 		}
 	})
-
-	const queriesWithSelect = queries.filter( el => el.toLowerCase().includes('select') ) 
-	const queriesToChangeDB = queries.filter( el => (!el.toLowerCase().includes('select') && el ))//.filter( i=>i ) 
-
 })
 
 app.listen( portServer,()=>console.log('Server running: http://localhost:'+portServer) )

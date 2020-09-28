@@ -4,6 +4,29 @@ var errors = null
 var database = new sqlite.Database('./databases/example.db', 
     (err) => { if(err) errors=err} )
 
+function createTable(array){
+	let table = '<table>'
+	const columns = Object.keys(array[0])
+
+
+	table += `<tr>`
+	for(i in columns){
+		table+=`<th>${columns[i]}</th>`
+	}
+	table += `</tr>`
+
+	for(i in array){
+		table += `<tr>`
+		for(c of columns){
+			table+=`<td>${array[i][c]}</td>`
+		}
+		table += `</tr>`
+	}
+	table+='</table>'
+
+	return table
+}
+
 module.exports = {
     /* startDatabase: function(databaseName){
          let data = null
@@ -47,7 +70,7 @@ module.exports = {
 						reject(errors)
 					} else {
 						data=result
-						resolve(data)
+						resolve(createTable(data))
 					}
 				})
 			})

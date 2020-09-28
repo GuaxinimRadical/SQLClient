@@ -77,22 +77,23 @@ body {
 
 .output {
     background-color: #21242B;
-
     color: #5a6574;
-    text-align: center;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
 
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 }
 
-.output svg {
+.output-empty {
+	height: 100%;
+
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+.output-empty svg {
     align-self: center;
     width: 25%;
     height: auto;
 }
-
