@@ -1,0 +1,98 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+
+    font-family: 'Courier Prime', monospace;
+}
+
+body {
+    background-color: rgb(150, 151, 180);
+}
+
+.app {
+    margin: 0 auto;
+
+    width: 800px;
+    height: 600px;
+    display: grid;
+    grid-template-columns: 50% 50%; 
+}
+
+.input {
+    background-color: #282D33;
+
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+    display: flex; 
+    flex-direction: column;
+    justify-content: stretch;
+    align-content: stretch;
+}
+.input header {
+    height: 50px;
+
+    top: 0px;
+    padding: 15px;
+    padding-bottom: 0px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+} 
+.input img {
+    height: 100%;
+}
+.input .button-run {
+    height: 100%;
+    background-color: #5a6574;
+    color: #282D33;
+    border-radius: 10px;
+    padding: 5px;
+}  
+.input textarea {
+    resize: none;
+    overflow: auto;
+    flex-grow: 1;
+    flex-basis: auto;
+
+    padding: 15px;
+    color: blueviolet;
+    font-size: 16pt;
+    background: none;
+    border: none;
+}
+.input .mode {
+    height: 30px;
+    background-color: #21242B;
+    border: none;
+
+    border-bottom-left-radius: 10px;
+
+    color: cornsilk;
+
+}
+
+
+.output {
+    background-color: #21242B;
+
+    color: #5a6574;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.output svg {
+    align-self: center;
+    width: 25%;
+    height: auto;
+}
+
