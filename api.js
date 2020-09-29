@@ -25,7 +25,7 @@ app.post('/query', function(req, res){
 
 	console.log('Queries to run: ')
 	queries.forEach( (element, indice) => {
-		console.log( indice+1,') ',element)
+		console.log( indice+1,') ',element.trim())
 	})
 	
 	queries.forEach( (el,ind) => {

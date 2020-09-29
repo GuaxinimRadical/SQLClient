@@ -4,7 +4,7 @@ const output = document.querySelector('.output')
 const buttonRun = document.getElementsByClassName('button-run')[0]
 buttonRun.addEventListener('click', ()=>{
 	let query = text.value 
-	query = query.split(';').filter( i=>i )
+	query = query.split(';').filter( i=>i.trim() )
 	console.log('Comandos setados: ',query)
 
 	const urlApi = 'http://localhost:8008/query'

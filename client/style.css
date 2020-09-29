@@ -1,3 +1,10 @@
+:root {
+	--color-text-primary: #969697;
+	--color-text-secondary: blueviolet;
+	--color-background-light: #282D33;
+	--color-background-dark: #21242B;
+}
+
 * {
     margin: 0px;
     padding: 0px;
@@ -20,7 +27,7 @@ body {
 }
 
 .input {
-    background-color: #282D33;
+    background-color: var(--color-background-light);
 
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -46,8 +53,8 @@ body {
 }
 .input .button-run {
     height: 100%;
-    background-color: #5a6574;
-    color: #282D33;
+    background-color: var(--color-text-primary);/*#5a6574;*/
+    color: var(--color-background-dark);
     border-radius: 10px;
     padding: 5px;
 }  
@@ -59,13 +66,13 @@ body {
 
     padding: 15px;
     color: blueviolet;
-    font-size: 16pt;
+    font-size: 14pt;
     background: none;
     border: none;
 }
 .input .mode {
     height: 30px;
-    background-color: #21242B;
+    background-color: var(--color-background-dark);
     border: none;
 
     border-bottom-left-radius: 10px;
@@ -76,8 +83,8 @@ body {
 
 
 .output {
-    background-color: #21242B;
-    color: #5a6574;
+    background-color: var(--color-background-dark);
+    color: var(--color-text-primary);
 
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -96,4 +103,19 @@ body {
     align-self: center;
     width: 25%;
     height: auto;
+}
+
+
+/* TABLES */
+table { 
+	border-collapse:  collapse;
+	width: 100%;
+}
+
+td, th {
+	border: 1px solid var(--color-text-primary);
+	padding: 2px;
+}
+tr:nth-child(odd){
+	background-color: var(--color-background-light);
 }
