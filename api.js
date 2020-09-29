@@ -35,7 +35,9 @@ app.post('/query', function(req, res){
 				.then( response => res.send({ table:response}))
 				.catch((err) => res.send({'errorDatabase': err}))
 		} else {
-			 sql.queryToChangeDB(el)
+			sql.queryToChangeDB(el)
+				.then(e=>console.log('ChangeDone: ',e))
+				.catch((err) => res.send({'errorDatabase': err}))
 		}
 	})
 })

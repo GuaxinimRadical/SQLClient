@@ -41,20 +41,23 @@ module.exports = {
      }, */
 
     queryToChangeDB: function(queryToRun){
-        let data = null
-        let errors = null
+		return new Promise((resolve, reject)=> {
+			let data = null
+			let errors = null
 
-        database.serialize(function(){
-            database.run(queryToRun)
-		}, (err) => { 
-			if(err){ 
-				errors=err
-			} else {
-				data='Sucefful'}
-			}
-		)
-
-        return errors || data
+			database.serialize(function(){
+				database.run(queryToRun)
+			}, (err) => { 
+				if(err){ 
+					errors=err
+					reject(errors)
+				} else {
+					data='Sucefful'
+					resolve(data)
+				}
+				}
+			)
+		})
     },
 
 	queryToSelect: function(queryToRun){

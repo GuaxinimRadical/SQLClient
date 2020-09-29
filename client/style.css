@@ -82,22 +82,30 @@ body {
 }
 
 
-.output {
+.output-area {
     background-color: var(--color-background-dark);
     color: var(--color-text-primary);
 
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 }
+.output-area > header {
+    color: #e5b25e;
+    border-bottom: 2px solid var(--color-text-primary);
+}
 
-.output-empty {
+.output {
 	height: 100%;
 
+}
+.output-empty{
+    height: 100%;
+    width: 100%;
     text-align: center;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-content: center;
 }
 .output-empty svg {
     align-self: center;
