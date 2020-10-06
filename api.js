@@ -19,7 +19,7 @@ app.get('/', function(req, res){
 })
 
 //Database
-app.post('/query', function(req, res){
+app.post('/query', async function(req, res){
 	const queries = req.body.array
 	// Example of const queries => ['SELECT * FROM DB', 'UPDATE ']
 
@@ -27,19 +27,30 @@ app.post('/query', function(req, res){
 	queries.forEach( (element, indice) => {
 		console.log( indice+1,') ',element.trim())
 	})
-	
-	queries.forEach( (el,ind) => {
+
+	const outputForQueries = await queries.reduce( async (lastTable, el, ind) => {
 		if(el.toLowerCase().includes('select')){
 			//Query with select
-			sql.queryToSelect(el)
-				.then( response => res.send({ table:response}))
-				.catch((err) => res.send({'errorDatabase': err}))
+			try{
+				const responseDB = await sql.queryToSelect(el);
+				const tableInHtml = await responseDB;
+	
+				return {table: tableIndHtml}
+			}
+			catch(err){
+				console.log('ERROR SELECT: ',err)
+				return({error: err})
+			}
+
+
 		} else {
 			sql.queryToChangeDB(el)
 				.then(e=>console.log('ChangeDone: ',e))
 				.catch((err) => res.send({'errorDatabase': err}))
 		}
-	})
+	}, {})
+
+	res.send(outputForQueries)
 })
 
 app.listen( portServer,()=>console.log('Server running: http://localhost:'+portServer) )
