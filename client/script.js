@@ -17,13 +17,13 @@ buttonRun.addEventListener('click', ()=>{
 		body: JSON.stringify({array: query})  
 		}
 	)
-	.then((a)=>a.json())
-	.then((a)=>{
+	.then( a => a.json())
+	.then( a => {
 		console.log(a)
-		if(a.table.includes('table')){
-			output.innerHTML = a.table	
+		if(a.table){
+			output.innerHTML = a.table[a.table.length-1]
 		}
 	})
-	.catch((e)=>console.error('ruim', e))
+	.catch( e => console.error('ruim', e))
 })
 

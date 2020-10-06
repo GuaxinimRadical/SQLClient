@@ -34,8 +34,10 @@ app.post('/query', async function(req, res){
 			try{
 				const responseDB = await sql.queryToSelect(el);
 				const tableInHtml = await responseDB;
+
+				const previousTables = await lastTable;
 	
-				return {table: tableIndHtml}
+				return { table: [...previousTables.table, tableInHtml] }
 			}
 			catch(err){
 				console.log('ERROR SELECT: ',err)
@@ -48,7 +50,7 @@ app.post('/query', async function(req, res){
 				.then(e=>console.log('ChangeDone: ',e))
 				.catch((err) => res.send({'errorDatabase': err}))
 		}
-	}, {})
+	}, { table: [] })
 
 	res.send(outputForQueries)
 })
