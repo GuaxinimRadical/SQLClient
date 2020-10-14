@@ -29,26 +29,31 @@ app.post('/query', async function(req, res){
 	})
 
 	const outputForQueries = await queries.reduce( async (lastTable, el, ind) => {
+		//Accumulator
+		const previousTables = await lastTable;
+
 		if(el.toLowerCase().includes('select')){
 			//Query with select
 			try{
 				const responseDB = await sql.queryToSelect(el);
 				const tableInHtml = await responseDB;
 
-				const previousTables = await lastTable;
-	
 				return { table: [...previousTables.table, tableInHtml] }
 			}
 			catch(err){
 				console.log('ERROR SELECT: ',err)
-				return({error: err})
+				console.log({ table: [...previousTables.table], error: err })
+
+				return({table: [...previousTables.table], error: err })
 			}
 
 
 		} else {
+			//Query to Change DB
 			sql.queryToChangeDB(el)
 				.then(e=>console.log('ChangeDone: ',e))
 				.catch((err) => res.send({'errorDatabase': err}))
+			return({error: err})
 		}
 	}, { table: [] })
 
