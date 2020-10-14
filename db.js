@@ -28,18 +28,7 @@ function createTable(array){
 }
 
 module.exports = {
-    /* startDatabase: function(databaseName){
-         let data = null
-         let errors = null
-
-         if(this.database){
-             this.database.close()
-         }
-       
-        
-         return erros
-     }, */
-
+    
     queryToChangeDB: function(queryToRun){
 		return new Promise((resolve, reject)=> {
 			let data = null

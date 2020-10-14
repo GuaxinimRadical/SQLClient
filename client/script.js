@@ -27,3 +27,8 @@ buttonRun.addEventListener('click', ()=>{
 	.catch( e => console.error('ruim', e))
 })
 
+const errorArea = document.querySelector('.error-area ')
+const errorsMessages = document.querySelector('.error-area > .errors')
+
+const buttonCloseErrorLog = document.querySelector('.error-area svg')
+buttonCloseErrorLog.onclick = () => errorArea.style.display = 'none'

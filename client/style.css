@@ -114,18 +114,27 @@ body {
     height: auto;
 }
 
-.output-area footer {
-    display: none;
+
+/* ERROR AREA */
+.error-area {
+    /* display: none; /* */
 
     color: #be5460;
-}
-.output-area footer > header{
-    /* display: none; */
-
-    color: #be5460;
-    padding: 2px;
     border-top: 2px solid #be5460;
+    height: 50%;
+}
+
+.error-area header{
+    display: flex;
+    justify-content: space-between;
     border-bottom: 2px solid #be5460;
+    color: #be5460;
+
+    padding: 5px;
+    background-color: #be546046;
+}
+.error-area .errors{
+    padding: 8px;
 }
 
 

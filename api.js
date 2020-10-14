@@ -23,7 +23,7 @@ app.post('/query', async function(req, res){
 	const queries = req.body.array
 	// Example of const queries => ['SELECT * FROM DB', 'UPDATE ']
 
-	console.log('Queries to run: ')
+	console.log('\nQueries to run: ')
 	queries.forEach( (element, indice) => {
 		console.log( indice+1,') ',element.trim())
 	})
@@ -31,6 +31,11 @@ app.post('/query', async function(req, res){
 	const outputForQueries = await queries.reduce( async (lastTable, el, ind) => {
 		//Accumulator
 		const previousTables = await lastTable;
+
+		//It don't permite do more queries if one of them has a error
+		if(previousTables.error){
+			return previousTables
+		}
 
 		if(el.toLowerCase().includes('select')){
 			//Query with select
@@ -44,22 +49,20 @@ app.post('/query', async function(req, res){
 				console.log('ERROR SELECT: ',err)
 				console.log({ table: [...previousTables.table], error: err })
 
-				return { ...previousTables, error: err }
+				return { ...previousTables, error: {error: err, query: ind+1} }
 			}
 
 		} else {
-			//Query to Change DB
-			//sql.queryToChangeDB(el)
-			//	.then(e=>console.log('ChangeDone: ',e))
-			//	.catch((err) => res.send({'errorDatabase': err}))
+
 			try{
 				const responseDB = await sql.queryToChangeDB(el);
 				return previousTables
 			} 
 			catch(err) {
 				console.log('ERROR UPDATE: ',err)
-				return {...previousTables, error: err }  
+				return {...previousTables, error: {error: err, query: ind+1} }
 			}
+
 		}
 	}, { table: [] })
 
