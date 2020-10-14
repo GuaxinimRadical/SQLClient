@@ -38,22 +38,28 @@ app.post('/query', async function(req, res){
 				const responseDB = await sql.queryToSelect(el);
 				const tableInHtml = await responseDB;
 
-				return { table: [...previousTables.table, tableInHtml] }
+				return { ...previousTables, table: [...previousTables.table, tableInHtml] }
 			}
 			catch(err){
 				console.log('ERROR SELECT: ',err)
 				console.log({ table: [...previousTables.table], error: err })
 
-				return({table: [...previousTables.table], error: err })
+				return { ...previousTables, error: err }
 			}
-
 
 		} else {
 			//Query to Change DB
-			sql.queryToChangeDB(el)
-				.then(e=>console.log('ChangeDone: ',e))
-				.catch((err) => res.send({'errorDatabase': err}))
-			return({error: err})
+			//sql.queryToChangeDB(el)
+			//	.then(e=>console.log('ChangeDone: ',e))
+			//	.catch((err) => res.send({'errorDatabase': err}))
+			try{
+				const responseDB = await sql.queryToChangeDB(el);
+				return previousTables
+			} 
+			catch(err) {
+				console.log('ERROR UPDATE: ',err)
+				return {...previousTables, error: err }  
+			}
 		}
 	}, { table: [] })
 

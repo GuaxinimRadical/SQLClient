@@ -46,17 +46,18 @@ module.exports = {
 			let errors = null
 
 			database.serialize(function(){
-				database.run(queryToRun)
-			}, (err) => { 
-				if(err){ 
-					errors=err
-					reject(errors)
-				} else {
-					data='Sucefful'
-					resolve(data)
-				}
+				database.run(queryToRun,
+				(err) => { 
+					if(err){ 
+						errors=err
+						reject(errors)
+					} else {
+						data='Sucefful'
+						resolve(data)
+					}
 				}
 			)
+			})
 		})
     },
 
