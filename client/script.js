@@ -1,6 +1,15 @@
 const text = document.querySelector('[name=script-area]')
 const output = document.querySelector('.output')
 
+const errorArea = document.querySelector('.error-area ')
+const errorsMessages = document.querySelector('.error-area > .errors')
+
+const buttonCloseErrorLog = document.querySelector('.error-area svg')
+toggleDisplayErrorLog = () => errorArea.style.display = 'none'
+buttonCloseErrorLog.onclick = toggleDisplayErrorLog
+
+toggleDisplayErrorLog()
+
 const buttonRun = document.getElementsByClassName('button-run')[0]
 buttonRun.addEventListener('click', ()=>{
 	let query = text.value 
@@ -20,15 +29,21 @@ buttonRun.addEventListener('click', ()=>{
 	.then( a => a.json())
 	.then( a => {
 		console.log(a)
-		if(a.table){
-			output.innerHTML = a.table[a.table.length-1]
-		}
+		handleJson(a)	
 	})
 	.catch( e => console.error('ruim', e))
 })
 
-const errorArea = document.querySelector('.error-area ')
-const errorsMessages = document.querySelector('.error-area > .errors')
+function handleJson(json){
+	if(json.error){
+		errorArea.style.display = 'block'	
+		errorsMessages.innerHTML = json.error.error
+	} else {
+		errorsMessages.innerHTML = 'No errors'
+	}
 
-const buttonCloseErrorLog = document.querySelector('.error-area svg')
-buttonCloseErrorLog.onclick = () => errorArea.style.display = 'none'
+	if(json.table[json.table.length-1]){
+		output.innerHTML = json.table[json.table.length-1]
+	}
+}
+

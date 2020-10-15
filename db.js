@@ -38,7 +38,7 @@ module.exports = {
 				database.run(queryToRun,
 				(err) => { 
 					if(err){ 
-						errors=err
+						errors= String( err )
 						reject(errors)
 					} else {
 						data='Sucefful'
@@ -59,7 +59,7 @@ module.exports = {
 				database.all(queryToRun,
 				(err, result) => {
 					if(err){
-						errors = 'ERRO: '+err
+						errors= String( err )
 						reject(errors)
 					} else {
 						data=result
