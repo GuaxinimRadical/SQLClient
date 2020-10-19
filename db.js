@@ -5,6 +5,23 @@ var database = new sqlite.Database('./databases/example.db',
     (err) => { if(err) errors=err} )
 
 function createTable(array){
+
+	//If the tables hasn't nothing
+	if( !array[0]  ){
+		return `
+		<table>
+			<tbody>
+				<tr>
+					<th>
+					Table Empty
+					</th>
+				</tr>
+			</tbody>
+		</table>
+		`
+	}
+
+
 	let table = '<table>'
 	const columns = Object.keys(array[0])
 
@@ -35,10 +52,12 @@ module.exports = {
 			let errors = null
 
 			database.serialize(function(){
+				//Queries inside this function serialize are run in sequence
 				database.run(queryToRun,
 				(err) => { 
+					//If the bib didn't find any problemn running the query, 'err' is null
 					if(err){ 
-						errors= String( err )
+						errors= String( err ) //Return the error
 						reject(errors)
 					} else {
 						data='Sucefful'
@@ -56,14 +75,17 @@ module.exports = {
 			let errors = null
 
 			database.serialize(function(){
+				//Queries inside this function serialize are run in sequence
+
 				database.all(queryToRun,
 				(err, result) => {
+					//If the bib didn't find any problemn running the query, 'err' is null
 					if(err){
-						errors= String( err )
+						errors= String( err ) //Return the error
 						reject(errors)
 					} else {
 						data=result
-						resolve(createTable(data))
+						resolve(createTable(data)) //Return a table HTML with the dades
 					}
 				})
 			})
