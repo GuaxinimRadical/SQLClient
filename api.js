@@ -3,7 +3,7 @@ var bodyParser = require('body-parser')
 var path = require('path')
 
 //Module to run the Queries in Database
-var sql = require('./db')
+var sql = require('./connection')
 
 //Express
 const app = express()
